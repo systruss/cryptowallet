@@ -72,30 +72,23 @@ class Delegate
 				echo "\n table delegate_dbs does not exist, run php artisan migrate \n";
 				return;
 			}
-			//check if there is a delegate entry in delegate table
-			$delegate = DelegateDb::all();
-			if (!$delegate->isEmpty()) {
-				//delegate exist
-				echo "\n There is already a delegate registered! \n";
-				return;
-			} else {
-				//create delegate
-				try {
-					$delegate = DelegateDb::create([
-						'address' => $this->address,
-						'passphrase' => $passphrase,
-						'network' => $network,
-						'sched_freq' => 24,
-						'sched_active' => true,
-					]);
-					$registered = succeed;
-					echo "\n Delegate registered successfully \n";
-				} catch (QueryException $e) {
-					echo "\n error : \n";
-					$registered = failed; 
-					return false;
-				}
+	
+			try {
+				$delegate = DelegateDb::create([
+					'address' => $this->address,
+					'passphrase' => $passphrase,
+					'network' => $network,
+					'sched_freq' => 24,
+					'sched_active' => true,
+				]);
+				$registered = succeed;
+				echo "\n Delegate registered successfully \n";
+			} catch (QueryException $e) {
+				echo "\n error : \n";
+				$registered = failed; 
+				return false;
 			}
+			
 			return true;
 		} else {
 				echo "\n delegate not valid \n";

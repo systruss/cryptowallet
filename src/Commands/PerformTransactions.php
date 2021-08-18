@@ -57,7 +57,7 @@ class PerformTransactions extends Command
      */
     public function handle()
     {
-        $disabled = 0;
+        $disabled = 1;
         
 		$this->info("---------------------------------------------");
         echo date('d-m-y h:i:s'); 
